@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  --font-baloo: 'Baloo 2', ui-rounded, system-ui, sans-serif;
+  --font-worksans: 'Work Sans', system-ui, sans-serif;
+  --font-plexmono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+body {
+  background-color: #F7FAFC;
+  color: #0B2545;
+}
+
+/* Signature element: the ribbon banner, echoing the logo's "Reaching for the Stars" ribbon.
+   Used as section eyebrows and callouts throughout the site. */
+.ribbon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #E64A3F;
+  color: #fff;
+  padding: 0.4rem 1.5rem;
+  font-family: var(--font-plexmono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  isolation: isolate;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0.9rem;
+  height: 100%;
+  background: #b8362d;
+  z-index: -1;
+}
+
+.ribbon::before {
+  left: -0.5rem;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+
+.ribbon::after {
+  right: -0.5rem;
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4.5s ease-in-out infinite;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #FFC93C;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
