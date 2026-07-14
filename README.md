@@ -62,13 +62,18 @@ dashboard — no longer a mock. Here's how to switch it on:
 
 ### 1. Create a Supabase project
 Go to https://supabase.com, create a free project, then go to
-**Project Settings → API** and copy your Project URL and `anon` public key.
+**Project Settings → API Keys** and copy your Project URL. For the key,
+Supabase now calls it the **publishable key** (starts with `sb_publishable_...`)
+instead of the older `anon` key — that's the one you want; it's the same
+role (safe for the browser, respects row-level security).
 
 ### 2. Add the environment variables
 ```bash
 cp .env.example .env.local
 ```
-Fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+Fill in `NEXT_PUBLIC_SUPABASE_URL` (the Project URL) and
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` (the publishable key, despite the "ANON" in
+the variable name — same thing, older naming).
 
 ### 3. Create the database schema
 In the Supabase dashboard, go to **SQL Editor → New query**, paste in the
@@ -77,6 +82,12 @@ contents of `supabase/schema.sql`, and run it. This creates all the tables
 security already configured — students can only ever see their own records,
 teachers only see their assigned classes, and admins/the proprietress see
 everything.
+
+**If this fails with an "already exists" error** (e.g. `type "user_role"
+already exists`), it means a previous attempt partially ran. Run
+`supabase/reset.sql` first (this cleanly drops everything schema.sql
+creates — safe during initial setup, since there's no real data yet), then
+run `schema.sql` again.
 
 Optionally also run `supabase/seed.sql` to pre-fill JSS1–SS3 classes and the
 standard subject list.

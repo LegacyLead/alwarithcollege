@@ -217,7 +217,7 @@ create policy "results: admin manage all" on results for all
 create policy "announcements: visible" on announcements for select
   using (class_id is null or class_id = my_class_id() or is_staff());
 create policy "announcements: staff post" on announcements for insert
-  using (is_staff()) with check (is_staff());
+  with check (is_staff());
 create policy "announcements: staff manage own" on announcements for all
   using (is_staff());
 
