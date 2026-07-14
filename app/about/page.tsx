@@ -1,6 +1,32 @@
 import Image from 'next/image';
 import { Reveal, StaggerGroup, StaggerItem, HoverLift, Tilt3D } from '@/components/motion';
+// ==========================================
+// 🔒 CONTROL FLAG: Set to 'true' to make the page dormant. 
+// Change to 'false' to instantly restore the page once paid!
+const IS_DORMANT = true; 
+// ==========================================
+export default function About() {
+  // If dormant mode is active, show this professional administrative hold screen
+  if (IS_DORMANT) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-32 text-center sm:px-6">
+        <div className="inline-block rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold tracking-wider text-amber-800 uppercase">
+          System Hold
+        </div>
+        <h1 className="mt-6 font-display text-3xl font-800 text-navy">
+          Access Temporarily Suspended
+        </h1>
+        <p className="mt-4 font-body text-sm text-navy/70 leading-relaxed">
+          This portal page is temporarily inactive due to pending administrative clearances and account audits. Normal services will resume shortly.
+        </p>
+        <p className="mt-6 font-mono text-xs text-navy/40">
+          Error Code: 402 (Payment/Contract Verification Required)
+        </p>
+      </div>
+    );
+  }
 
+  // ... (Your original school website code follows here untouched)
 const values = [
   { title: 'Excellence', blurb: 'We hold every student to a high standard, and support them in reaching it.' },
   { title: 'Character', blurb: 'Discipline, honesty and respect are taught alongside every subject.' },
