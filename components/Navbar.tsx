@@ -24,6 +24,7 @@ export default function Navbar() {
   const [showGuide, setShowGuide] = useState(false);
   const pathname = usePathname();
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -64,8 +65,27 @@ export default function Navbar() {
     if (showGuide) dismissGuide();
   }
 
+  useEffect(() => {
+    if (!open) return;
+
+    function handlePointerDown(e: PointerEvent) {
+      // headerRef wraps the whole header — logo, desktop nav, hamburger
+      // button, and the mobile menu panel. A click anywhere inside any of
+      // those (including the hamburger button itself) is left alone; the
+      // button's own onClick already handles toggling. Anything outside
+      // means attention moved back to the page, so close the menu.
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [open]);
+
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-40 border-b-4 border-sky bg-paper/95 backdrop-blur transition-shadow duration-300 ${
         scrolled ? 'shadow-md shadow-navy/5' : ''
       }`}
