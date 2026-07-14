@@ -7,11 +7,11 @@ insert into classes (name) values
 on conflict (name) do nothing;
 
 insert into subjects (name) values
-  ('Mathematics'), ('English Language'), ('Basic Science'), ('Basic Technology'),
-  ('Digital Technologies'), ('Data Processing'), ('Business Studies'),
-  ('Social Studies'), ('Civic Education'), ('Agricultural Science'),
+  ('Mathematics'), ('Further Mathematics'), ('English Language'), ('Basic Science'),
+  ('Basic Technology'), ('Digital Technologies'), ('Coding'), ('Data Processing'),
+  ('Business Studies'), ('Social Studies'), ('Civic Education'), ('Agricultural Science'),
   ('Home Economics'), ('Cultural and Creative Arts'), ('Physical and Health Education'),
-  ('French'), ('Christian/Islamic Studies'), ('Physics'), ('Chemistry'), ('Biology'),
-  ('Economics'), ('Government'), ('Commerce'), ('Accounting'),
+  ('French'), ('Arabic'), ('Islamic Religious Studies'), ('Physics'), ('Chemistry'),
+  ('Biology'), ('Economics'), ('Government'), ('Commerce'), ('Accounting'),
   ('Literature-in-English'), ('Geography')
 on conflict (name) do nothing;

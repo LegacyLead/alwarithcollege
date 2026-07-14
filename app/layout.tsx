@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Preloader from '@/components/Preloader';
+import MaintenanceBanner from '@/components/MaintenanceBanner';
 
 export const metadata: Metadata = {
   title: 'Al-Warith College',
@@ -21,6 +23,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-body flex min-h-screen flex-col">
+        <Preloader />
+        <MaintenanceBanner />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

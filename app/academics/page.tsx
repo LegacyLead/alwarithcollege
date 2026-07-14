@@ -2,16 +2,17 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/motion';
 
 const junior = [
   'Mathematics', 'English Language', 'Basic Science', 'Basic Technology',
-  'Digital Technologies', 'Data Processing', 'Business Studies', 'Social Studies',
-  'Civic Education', 'Agricultural Science', 'Home Economics',
+  'Digital Technologies', 'Coding', 'Data Processing', 'Business Studies',
+  'Social Studies', 'Civic Education', 'Agricultural Science', 'Home Economics',
   'Cultural and Creative Arts', 'Physical and Health Education', 'French',
-  'Christian/Islamic Studies',
+  'Arabic', 'Islamic Religious Studies',
 ];
 const senior = [
-  'Mathematics', 'English Language', 'Civic Education', 'Digital Technologies',
-  'Data Processing', 'Physics', 'Chemistry', 'Biology', 'Agricultural Science',
-  'Economics', 'Government', 'Commerce', 'Accounting', 'Literature-in-English',
-  'Geography',
+  'Mathematics', 'Further Mathematics', 'English Language', 'Civic Education',
+  'Digital Technologies', 'Coding', 'Data Processing', 'Physics', 'Chemistry',
+  'Biology', 'Agricultural Science', 'Economics', 'Government', 'Commerce',
+  'Accounting', 'Literature-in-English', 'Geography', 'Arabic',
+  'Islamic Religious Studies',
 ];
 
 export default function Academics() {
