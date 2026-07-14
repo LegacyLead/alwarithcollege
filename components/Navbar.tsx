@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Ripple } from '@/components/motion';
+import NavGuide from '@/components/NavGuide';
 
 const links = [
   { href: '/about', label: 'About' },
@@ -15,10 +16,14 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ];
 
+const NAV_GUIDE_KEY = 'has_seen_nav_guide';
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   const pathname = usePathname();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -26,6 +31,38 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    // Only ever show once, ever, per browser — and only on mobile widths,
+    // since that's the only layout where the hamburger exists at all.
+    let alreadySeen = true;
+    try {
+      alreadySeen = window.localStorage.getItem(NAV_GUIDE_KEY) === 'true';
+    } catch {
+      // localStorage unavailable — just skip the guide rather than risk showing it repeatedly.
+    }
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+    if (!alreadySeen && isMobile) {
+      // Small delay so it appears after the page (and the preloader) has settled in.
+      const timer = window.setTimeout(() => setShowGuide(true), 1200);
+      return () => window.clearTimeout(timer);
+    }
+  }, []);
+
+  function dismissGuide() {
+    setShowGuide(false);
+    try {
+      window.localStorage.setItem(NAV_GUIDE_KEY, 'true');
+    } catch {
+      // ignore — worst case it shows again next visit
+    }
+  }
+
+  function handleHamburgerClick() {
+    setOpen(!open);
+    if (showGuide) dismissGuide();
+  }
 
   return (
     <header
@@ -71,10 +108,11 @@ export default function Navbar() {
         </nav>
 
         <button
+          ref={hamburgerRef}
           className="md:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
-          onClick={() => setOpen(!open)}
+          onClick={handleHamburgerClick}
         >
           <motion.span
             className="block h-0.5 w-6 bg-navy mb-1.5"
@@ -138,6 +176,8 @@ export default function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      <NavGuide targetRef={hamburgerRef} show={showGuide} onDismiss={dismissGuide} />
     </header>
   );
 }
